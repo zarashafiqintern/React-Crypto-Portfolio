@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
+import Navbar from "./components/Navbar";
 import AddInvestmentForm from "./components/AddInvestmentForm";
 import Dashboard from "./pages/Dashboard";
 import Investments from "./pages/Investments";
@@ -13,6 +14,7 @@ function App() {
   return (
     <Router>
       <div className="app-container">
+        <Navbar/>
         <Header />
          <AddInvestmentForm />
         <Routes>

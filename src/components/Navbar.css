@@ -38,37 +38,3 @@
   opacity: 0.85;
   transform: translateY(-2px);
 }
-
-.header {
- background: linear-gradient(to right, #667eea, #764ba2);
-    color: white;
-    text-align: center;
-    padding: 15px 40px;
-    font-family: "Poppins", sans-serif;
-    border-radius: 0 0 20px 20px;
-  margin-bottom: 25px; 
-}
-
-.header-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 8px;
-}
-
-.icon {
-  font-size: 2.3rem;
-}
-
-.title {
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 0;
-}
-
-.subtitle {
-  font-size: 1.05rem;
-  opacity: 0.9;
-  margin: 0;
-}
