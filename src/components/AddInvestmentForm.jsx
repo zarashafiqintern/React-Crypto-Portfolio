@@ -34,39 +34,29 @@ const AddInvestmentForm = () => {
         onSubmit={handleSubmit}
       >
         <Form>
-          {/* Coin Symbol */}
           <div>
             <label>Coin Symbol</label>
-            <Field type="text" name="coin" placeholder="e.g. BTC" />
-            <ErrorMessage name="coin" component="p" />
+            <Field type="text" name="coin" placeholder="Type to search..." />
           </div>
 
-          {/* Quantity */}
           <div>
             <label>Quantity</label>
             <Field type="number" name="quantity" placeholder="0.5" />
-            <ErrorMessage name="quantity" component="p" />
           </div>
 
-          {/* Buy Price */}
           <div>
             <label>Buy Price (USDT)</label>
             <Field type="number" name="buyPrice" placeholder="45000" />
-            <ErrorMessage name="buyPrice" component="p" />
           </div>
 
-          {/* Purchase Date */}
           <div>
             <label>Purchase Date</label>
-            <Field type="date" name="date" />
-            <ErrorMessage name="date" component="p" />
+            <Field type="date" name="date" placeholder="45000"/>
           </div>
 
-          {/* Purchase Time */}
           <div>
             <label>Purchase Time</label>
-            <Field type="time" name="time" />
-            <ErrorMessage name="time" component="p" />
+            <Field type="time" name="time" placeholder="45000" />
           </div>
 
           <button type="submit">Add Investment</button>
