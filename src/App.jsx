@@ -16,12 +16,13 @@ function App() {
         <Header />
          <AddInvestmentForm />
         <Routes>
+          <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/investments" element={<Investments />} />
-          <Route path="/investment" element={<Investment />} />
-          <Route path="/editinvestment" element={<EditInvestment />} />
-          <Route path="/createinvestment" element={<CreateInvestment />} />
-        </Routes>
+           <Route path="/investments" element={<Investments />} />
+           <Route path="/investments/:id" element={<Investment />} />
+           <Route path="/investments/:id/edit" element={<EditInvestment />} />
+           <Route path="/investment/create" element={<CreateInvestment />} />
+        </Routes>  
       </div>
     </Router>
   );

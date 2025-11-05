@@ -1,0 +1,54 @@
+.investment-form-container{
+    padding: 30px;
+}
+.form-title {
+    color: #667EEA;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+.investment-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 15px;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+.input-field {
+    padding: 12px;
+    border: 2px solid #E0E0E0;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+
+.react-select-container {
+  font-size: 1em;
+}
+
+.react-select__control {
+  border: 2px solid #e0e0e0 !important;
+  border-radius: 8px !important;
+  padding: 2px;
+  box-shadow: none !important;
+}
+
+.react-select__control--is-focused {
+  border-color: #667eea !important;
+}
+
+.react-select__option {
+  color: white !important;
+  background-color: #2a2a2a !important;
+}
+
+.react-select__option--is-focused {
+  background-color: #667eea !important;
+}
+
+.react-select__menu {
+  background-color: #2a2a2a !important;
+  border-radius: 8px;
+} 
