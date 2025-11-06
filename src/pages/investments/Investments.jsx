@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./investments.css";
 import { useLocalStorage } from "../../Hooks/UseLocalStorage";
+import { FaEdit } from "react-icons/fa";
+import DeleteButton from "../../components/DeleteButton";
 
 const Investments = () => {
   const [investments] = useLocalStorage("investments", []);
@@ -44,6 +46,12 @@ const Investments = () => {
     }
   };
 
+  const handleDelete = (coinName) => {
+    const filtered = updatedInvestments.filter((inv) => inv.coin !== coinName);
+    setUpdatedInvestments(filtered);
+    localStorage.setItem("investments", JSON.stringify(filtered));
+  };
+
   return (
     <div className="investments-page">
       {updatedInvestments.length === 0 ? (
@@ -51,7 +59,14 @@ const Investments = () => {
       ) : (
         updatedInvestments.map((inv, i) => (
           <div className="card" key={i}>
-            <h1>{inv.coin}</h1>
+            <div className="card-header">
+              <h1>{inv.coin}</h1>
+              <div className="icons">
+                <FaEdit className="edit-icon" title="Edit investment" />
+                <DeleteButton onDelete={() => handleDelete(inv.coin)} />
+              </div>
+            </div>
+
             <div className="card-row"><strong>Quantity:</strong> {inv.quantity}</div>
             <div className="card-row"><strong>Buy Price:</strong> ${inv.buyPrice}</div>
             <div className="card-row"><strong>Current Price:</strong> ${inv.currentPrice}</div>
