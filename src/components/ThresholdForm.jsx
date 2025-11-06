@@ -1,5 +1,6 @@
 import React from "react";
 import { useFormikContext } from "formik";
+import "./ThresholdForm.css";
 
 const ThresholdForm = () => {
   const { values, handleChange } = useFormikContext();
@@ -54,6 +55,7 @@ const ThresholdForm = () => {
             value={values.profitThreshold}
             onChange={handleChange}
             disabled={isDisabled}
+            className="input-field"
           />
         </div>
 
@@ -66,6 +68,7 @@ const ThresholdForm = () => {
             value={values.lossThreshold}
             onChange={handleChange}
             disabled={isDisabled}
+            className="input-field"
           />
         </div>
       </div>

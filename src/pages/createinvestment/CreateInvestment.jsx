@@ -3,6 +3,8 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import AddInvestmentForm from "../../components/AddInvestmentForm";
 import ThresholdForm from "../../components/ThresholdForm";
+import "./CreateInvestment.css"
+
 const CreateInvestment = () => {
   const initialValues = {
     coin: "",
