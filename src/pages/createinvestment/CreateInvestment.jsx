@@ -3,7 +3,7 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import AddInvestmentForm from "../../components/AddInvestmentForm";
 import ThresholdForm from "../../components/ThresholdForm";
-import "./CreateInvestment.css"
+import "./CreateInvestment.css";
 
 const CreateInvestment = () => {
   const initialValues = {
@@ -26,7 +26,24 @@ const CreateInvestment = () => {
   });
 
   const handleSubmit = (values) => {
-    console.log("All Form Data:", values);
+    const savedInvestments =
+      JSON.parse(localStorage.getItem("investments")) || [];
+
+    const newInvestment = {
+      ...values,
+      threshold:
+        values.thresholdType === "percentage"
+          ? `+${values.profitThreshold}% / ${values.lossThreshold}%`
+          : values.thresholdType === "target"
+          ? `Target: ${values.profitThreshold}`
+          : "None",
+    };
+
+    localStorage.setItem(
+      "investments",
+      JSON.stringify([...savedInvestments, newInvestment])
+    );
+
     alert("Investment added successfully!");
   };
 

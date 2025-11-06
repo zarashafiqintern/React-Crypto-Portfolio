@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
-import Investments from "./pages/Investments";
+import Investments from "./pages/investments/Investments";
 import Investment from "./pages/Investment";
 import EditInvestment from "./pages/EditInvestment";
 import CreateInvestment from "./pages/createinvestment/CreateInvestment"; 
@@ -17,7 +17,6 @@ function App() {
         <Header />
 
         <Routes>
-          <Route path="/" element={<CreateInvestment />} />
           <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/investments" element={<Investments />} />

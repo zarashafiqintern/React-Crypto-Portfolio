@@ -1,11 +1,8 @@
 .header {
- background: linear-gradient(to right, #667eea, #764ba2);
-    color: white;
-    text-align: center;
-    padding: 15px 40px;
-    font-family: "Poppins", sans-serif;
-    border-radius: 0 0 20px 20px;
-  margin-bottom: 25px; 
+  color: white; 
+  text-align: center; 
+  padding: 15px 40px; 
+  font-family: "Poppins", sans-serif; 
 }
 
 .header-content {
