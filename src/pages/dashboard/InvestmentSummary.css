@@ -2,8 +2,9 @@
   display: flex;
   gap: 20px;
   justify-content: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   flex-wrap: wrap;
+      margin-top: 15px;
 }
 
 .summary-card {

@@ -7,11 +7,15 @@ import ExportCV from "./ExportCV";
 import { useLocalStorage } from "../../Hooks/UseLocalStorage";
 import InvestmentSummary from "./InvestmentSummary";
 
+import { fetchPrice } from "../../utils/fetchPrice";
+import { calculateInvestmentStats } from "../../utils/calculateInvestmentStats";
+import { STORAGE_KEYS } from "../../utils/storageKeys";
+
 const Dashboard = () => {
   const [showCreate, setShowCreate] = useState(false);
   const [showCalculator, setShowCalculator] = useState(false);
   const [portfolio, setPortfolio] = useState([]);
-  const [investments] = useLocalStorage("investments", []);
+  const [investments] = useLocalStorage(STORAGE_KEYS.INVESTMENTS, []);
   const [totals, setTotals] = useState({
     totalInvested: 0,
     currentValue: 0,
@@ -21,7 +25,13 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (investments.length > 0) fetchPrices(investments);
-    else setTotals({ totalInvested: 0, currentValue: 0, totalPL: 0, plPercentage: 0 });
+    else
+      setTotals({
+        totalInvested: 0,
+        currentValue: 0,
+        totalPL: 0,
+        plPercentage: 0,
+      });
   }, [investments]);
 
   const fetchPrices = async (data) => {
@@ -29,15 +39,13 @@ const Dashboard = () => {
       const updated = await Promise.all(
         data.map(async (inv) => {
           const symbol = inv.coin.toUpperCase() + "USDT";
-          const url = `${import.meta.env.VITE_BINANCE_URL}?symbol=${symbol}`;
-          const res = await fetch(url);
-          const apiData = await res.json();
+          const currentPrice = await fetchPrice(symbol);
 
-          const currentPrice = parseFloat(apiData.price) || 0;
-          const quantity = parseFloat(inv.quantity);
-          const buyPrice = parseFloat(inv.buyPrice);
-          const invested = quantity * buyPrice;
-          const currentValue = quantity * currentPrice;
+          const { invested, currentValue } = calculateInvestmentStats(
+            parseFloat(inv.quantity),
+            parseFloat(inv.buyPrice),
+            currentPrice
+          );
 
           return { invested, currentValue };
         })

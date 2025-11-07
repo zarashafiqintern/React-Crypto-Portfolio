@@ -3,12 +3,16 @@ import "./investments.css";
 import { useLocalStorage } from "../../Hooks/UseLocalStorage";
 import { FaEdit } from "react-icons/fa";
 import DeleteButton from "../../components/DeleteButton";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
+
+import { fetchPrice } from "../../utils/fetchPrice";
+import { calculateInvestmentStats } from "../../utils/calculateInvestmentStats";
+import { STORAGE_KEYS } from "../../utils/storageKeys";
 
 const Investments = () => {
-  const [investments] = useLocalStorage("investments", []);
+  const [investments] = useLocalStorage(STORAGE_KEYS.INVESTMENTS, []);
   const [updatedInvestments, setUpdatedInvestments] = useState([]);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (investments.length > 0) fetchPrices(investments);
@@ -19,22 +23,14 @@ const Investments = () => {
       const updated = await Promise.all(
         data.map(async (inv) => {
           const symbol = inv.coin.toUpperCase() + "USDT";
-          const url = `${import.meta.env.VITE_BINANCE_URL}?symbol=${symbol}`;
-          const res = await fetch(url);
-          const apiData = await res.json();
+          const currentPrice = await fetchPrice(symbol);
 
-          const currentPrice = parseFloat(apiData.price) || 0;
-          const quantity = parseFloat(inv.quantity);
-          const buyPrice = parseFloat(inv.buyPrice);
-          const invested = quantity * buyPrice;
-          const currentValue = quantity * currentPrice;
-
-          const profitLoss =
-            invested > 0
-              ? (((currentValue - invested) / invested) * 100).toFixed(2)
-              : 0;
-
-          const absoluteProfitLoss = currentValue - invested;
+          const { invested, currentValue, totalPL, profitLoss } =
+            calculateInvestmentStats(
+              parseFloat(inv.quantity),
+              parseFloat(inv.buyPrice),
+              currentPrice
+            );
 
           return {
             ...inv,
@@ -42,7 +38,7 @@ const Investments = () => {
             invested,
             currentValue,
             profitLoss,
-            absoluteProfitLoss,
+            absoluteProfitLoss: totalPL,
           };
         })
       );
@@ -55,7 +51,7 @@ const Investments = () => {
   const handleDelete = (coinName) => {
     const filtered = updatedInvestments.filter((inv) => inv.coin !== coinName);
     setUpdatedInvestments(filtered);
-    localStorage.setItem("investments", JSON.stringify(filtered));
+    localStorage.setItem(STORAGE_KEYS.INVESTMENTS, JSON.stringify(filtered));
   };
 
   const handleEdit = (coin) => {
@@ -114,14 +110,22 @@ const Investments = () => {
 
             <div className="card-row">
               <strong>Profit/Loss:</strong>{" "}
-              <span style={{ color: inv.absoluteProfitLoss >= 0 ? "limegreen" : "red" }}>
+              <span
+                style={{
+                  color: inv.absoluteProfitLoss >= 0 ? "limegreen" : "red",
+                }}
+              >
                 ${inv.absoluteProfitLoss.toFixed(2)}
               </span>
             </div>
 
             <div className="card-row">
               <strong>P/L %:</strong>{" "}
-              <span style={{ color: inv.profitLoss >= 0 ? "limegreen" : "red" }}>
+              <span
+                style={{
+                  color: inv.profitLoss >= 0 ? "limegreen" : "red",
+                }}
+              >
                 {inv.profitLoss}%
               </span>
             </div>
