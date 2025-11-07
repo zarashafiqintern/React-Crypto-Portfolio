@@ -6,7 +6,7 @@ import ThresholdForm from "../../components/ThresholdForm";
 import "./EditInvestment.css";
 
 const EditInvestment = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const navigate = useNavigate();
   const investments = JSON.parse(localStorage.getItem("investments")) || [];
 
@@ -37,27 +37,20 @@ const EditInvestment = () => {
 
       <Formik
         initialValues={investment}
-        enableReinitialize 
+        enableReinitialize
         onSubmit={handleSubmit}
       >
         <Form>
           <AddInvestmentForm selectedCoin={investment.coin} />
-          <ThresholdForm />
-
-          <div className="button-group">
-            <button type="submit" className="save-btn">
+          <ThresholdForm />         
+          <div className="butt-group">
+            <button type="submt" className="save-butn">
               Save Changes
             </button>
-
             <button
               type="button"
-              className="cancel-btn"
+              className="cancel-butn"
               onClick={handleCancel}
-              style={{
-                marginLeft: "10px",
-                backgroundColor: "#ccc",
-                color: "#000",
-              }}
             >
               Cancel
             </button>

@@ -1,23 +1,36 @@
-.save-btn {
-  background-color: #28a745;
-  color: white;
-  padding: 8px 14px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.cancel-btn {
-  background-color: #ccc;
-  color: black;
-  padding: 8px 14px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.button-group {
-  margin-top: 20px;
+.butt-group {
   display: flex;
+  gap: 16px;
   justify-content: flex-start;
+  margin-top: 25px;
+}
+
+.save-butn,
+.cancel-butn {
+  border: 1.5px solid #7c8cf8;
+  background-color: #7c8cf8;
+  color: #fff2f2;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 12px 26px;
+  border-radius: 10px;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  min-width: 130px; 
+  justify-content: center;
+}
+
+.save-butn:hover,
+.cancel-butn:hover {
+  background-color: #6674f5;
+  border-color: #6674f5;
+  box-shadow: 0 0 8px rgba(102, 116, 245, 0.3);
+}
+
+.save-butn:active,
+.cancel-butn:active {
+  transform: scale(0.97);
 }
