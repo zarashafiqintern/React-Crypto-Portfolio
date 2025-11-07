@@ -108,26 +108,22 @@ const Investments = () => {
 
             <br />
 
-            <div className="card-row">
-              <strong>Profit/Loss:</strong>{" "}
-              <span
-                style={{
-                  color: inv.absoluteProfitLoss >= 0 ? "limegreen" : "red",
-                }}
-              >
-                ${inv.absoluteProfitLoss.toFixed(2)}
-              </span>
+            <div
+              className={`card-row ${
+                inv.absoluteProfitLoss >= 0
+                  ? "profit-positive"
+                  : "profit-negative"
+              }`}
+            >
+              <strong>Profit/Loss:</strong> ${inv.absoluteProfitLoss.toFixed(2)}
             </div>
 
-            <div className="card-row">
-              <strong>P/L %:</strong>{" "}
-              <span
-                style={{
-                  color: inv.profitLoss >= 0 ? "limegreen" : "red",
-                }}
-              >
-                {inv.profitLoss}%
-              </span>
+            <div
+              className={`card-row ${
+                inv.profitLoss >= 0 ? "profit-positive" : "profit-negative"
+              }`}
+            >
+              <strong>P/L %:</strong> {inv.profitLoss}%
             </div>
           </div>
         ))

@@ -73,3 +73,21 @@
   color: white;
   transform: scale(1.1);
 }
+.profit-positive {
+  color: limegreen;
+}
+
+.profit-negative {
+  color: red;
+}
+
+@media (max-width: 768px) {
+  .investments-page {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 90%;
+  }
+}
