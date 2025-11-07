@@ -3,8 +3,8 @@ import { Field, useFormikContext } from "formik";
 import Select from "react-select";
 import "./AddInvestmentForm.css";
 
-const AddInvestmentForm = () => {
-  const { setFieldValue } = useFormikContext();
+const AddInvestmentForm = ({ selectedCoin }) => {
+  const { values, setFieldValue } = useFormikContext();
 
   const coinOptions = [
     { value: "BTC", label: "BTC - Bitcoin" },
@@ -35,17 +35,24 @@ const AddInvestmentForm = () => {
     { value: "ASTER", label: "ASTER - Aster" },
   ];
 
+  const selectedOption =
+    coinOptions.find(
+      (option) =>
+        option.value.toLowerCase() ===
+        (values.coin || selectedCoin || "").toLowerCase()
+    ) || null;
+
   return (
     <div className="investment-form-container">
-      <h2 className="form-title">Add New Investment</h2>
+      <h2 className="form-title">Add Investment</h2>
 
       <div className="form-fields">
-
         <div className="form-group">
           <label>Coin Symbol</label>
           <Select
             options={coinOptions}
             placeholder="Type to search..."
+            value={selectedOption} 
             onChange={(option) => setFieldValue("coin", option.value)}
             className="react-select-container"
             classNamePrefix="react-select"
@@ -81,7 +88,6 @@ const AddInvestmentForm = () => {
           <label>Purchase Time</label>
           <Field type="time" name="time" className="input-field" />
         </div>
-
       </div>
     </div>
   );

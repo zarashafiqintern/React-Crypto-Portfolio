@@ -3,10 +3,12 @@ import "./investments.css";
 import { useLocalStorage } from "../../Hooks/UseLocalStorage";
 import { FaEdit } from "react-icons/fa";
 import DeleteButton from "../../components/DeleteButton";
+import { useNavigate } from "react-router-dom"; 
 
 const Investments = () => {
   const [investments] = useLocalStorage("investments", []);
   const [updatedInvestments, setUpdatedInvestments] = useState([]);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     if (investments.length > 0) fetchPrices(investments);
@@ -52,6 +54,10 @@ const Investments = () => {
     localStorage.setItem("investments", JSON.stringify(filtered));
   };
 
+  const handleEdit = (coin) => {
+    navigate(`/investments/${coin}/edit`);
+  };
+
   return (
     <div className="investments-page">
       {updatedInvestments.length === 0 ? (
@@ -62,18 +68,45 @@ const Investments = () => {
             <div className="card-header">
               <h1>{inv.coin}</h1>
               <div className="icons">
-                <FaEdit className="edit-icon" title="Edit investment" />
+              
+                <FaEdit
+                  className="edit-icon"
+                  title="Edit investment"
+                  onClick={() => handleEdit(inv.coin)}
+                />
                 <DeleteButton onDelete={() => handleDelete(inv.coin)} />
               </div>
             </div>
 
-            <div className="card-row"><strong>Quantity:</strong> {inv.quantity}</div>
-            <div className="card-row"><strong>Buy Price:</strong> ${inv.buyPrice}</div>
-            <div className="card-row"><strong>Current Price:</strong> ${inv.currentPrice}</div>
-            <div className="card-row"><strong>Invested:</strong> ${inv.invested.toLocaleString()}</div>
-            <div className="card-row"><strong>Current Value:</strong> ${inv.currentValue.toLocaleString()}</div>
-            <div className="card-row"><strong>Threshold:</strong> {inv.threshold}</div>
-            <div className="card-row"><strong>Purchase Date:</strong> {inv.date}, {inv.time}</div>
+            <div className="card-row">
+              <strong>Quantity:</strong> {inv.quantity}
+            </div>
+            <div className="card-row">
+              <strong>Buy Price:</strong> ${inv.buyPrice}
+            </div>
+            <div className="card-row">
+              <strong>Current Price:</strong> ${inv.currentPrice}
+            </div>
+            <div className="card-row">
+              <strong>Invested:</strong> ${inv.invested.toLocaleString()}
+            </div>
+            <div className="card-row">
+              <strong>Current Value:</strong> ${inv.currentValue.toLocaleString()}
+            </div>
+
+            <div className="card-row">
+              <strong>Threshold:</strong>{" "}
+              {inv.thresholdType === "percentage"
+                ? `Percentage (${inv.profitThreshold || "N/A"}%)`
+                : inv.thresholdType === "target"
+                ? `Target Price (${inv.profitThreshold || "N/A"} USDT)`
+                : "None"}
+            </div>
+
+            <div className="card-row">
+              <strong>Purchase Date:</strong> {inv.date}, {inv.time}
+            </div>
+
             <br />
             <strong>P/L:</strong>{" "}
             <span style={{ color: inv.profitLoss >= 0 ? "limegreen" : "red" }}>
