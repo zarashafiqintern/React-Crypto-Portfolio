@@ -4,7 +4,6 @@ import Header from "./components/Header";
 import Navbar from "./components/Navbar";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Investments from "./pages/investments/Investments";
-import Investment from "./pages/Investment";
 import EditInvestment from "./pages/EditInvestment/EditInvestment";
 import CreateInvestment from "./pages/createinvestment/CreateInvestment"; 
 import "./App.css";
@@ -20,7 +19,6 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/investments" element={<Investments />} />
-          <Route path="/investments/:id" element={<Investment />} />
           <Route path="/investments/:id/edit" element={<EditInvestment />} />
           <Route path="/investment/create" element={<CreateInvestment />} />
         </Routes>
