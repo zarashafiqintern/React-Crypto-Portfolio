@@ -1,28 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Dashboard.css';
-import { useState } from "react";
 import CreateInvestment from '../createinvestment/CreateInvestment';
+import Calculator from './Calculator';
 
 const Dashboard = () => {
   const [showCreate, setShowCreate] = useState(false);
- 
+  const [showCalculator, setShowCalculator] = useState(false); 
+
   return (
     <>
       <div className="cont">
         <h2>Your Portfolio</h2>
+
         <button
           className="button"
           onClick={() => setShowCreate(true)}
         >
           Create
         </button>
+
+        <button
+          className="button"
+          onClick={() => setShowCalculator(true)}
+        >
+          Calculator
+        </button>
       </div>
+
       {showCreate && (
         <div className="create-container">
           <CreateInvestment />
         </div>
       )}
+
+      {showCalculator && (
+        <div className="calculator-container">
+          <Calculator onClose={() => setShowCalculator(false)} />
+        </div>
+      )}
     </>
   );
 };
+
 export default Dashboard;
