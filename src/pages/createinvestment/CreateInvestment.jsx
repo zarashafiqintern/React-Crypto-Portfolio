@@ -5,7 +5,12 @@ import AddInvestmentForm from "../../components/AddInvestmentForm";
 import ThresholdForm from "../../components/ThresholdForm";
 import "./CreateInvestment.css";
 
+import { useNavigate } from "react-router-dom";
+
 const CreateInvestment = () => {
+
+  const navigate = useNavigate();
+
   const initialValues = {
     coin: "",
     quantity: "",
@@ -44,7 +49,7 @@ const CreateInvestment = () => {
       JSON.stringify([...savedInvestments, newInvestment])
     );
 
-    alert("Investment added successfully!");
+    navigate("/investments");
   };
 
   return (
