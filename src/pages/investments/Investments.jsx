@@ -28,10 +28,13 @@ const Investments = () => {
           const buyPrice = parseFloat(inv.buyPrice);
           const invested = quantity * buyPrice;
           const currentValue = quantity * currentPrice;
+
           const profitLoss =
             invested > 0
               ? (((currentValue - invested) / invested) * 100).toFixed(2)
               : 0;
+
+          const absoluteProfitLoss = currentValue - invested;
 
           return {
             ...inv,
@@ -39,6 +42,7 @@ const Investments = () => {
             invested,
             currentValue,
             profitLoss,
+            absoluteProfitLoss,
           };
         })
       );
@@ -68,7 +72,6 @@ const Investments = () => {
             <div className="card-header">
               <h1>{inv.coin}</h1>
               <div className="icons">
-              
                 <FaEdit
                   className="edit-icon"
                   title="Edit investment"
@@ -108,10 +111,20 @@ const Investments = () => {
             </div>
 
             <br />
-            <strong>P/L:</strong>{" "}
-            <span style={{ color: inv.profitLoss >= 0 ? "limegreen" : "red" }}>
-              {inv.profitLoss}%
-            </span>
+
+            <div className="card-row">
+              <strong>Profit/Loss:</strong>{" "}
+              <span style={{ color: inv.absoluteProfitLoss >= 0 ? "limegreen" : "red" }}>
+                ${inv.absoluteProfitLoss.toFixed(2)}
+              </span>
+            </div>
+
+            <div className="card-row">
+              <strong>P/L %:</strong>{" "}
+              <span style={{ color: inv.profitLoss >= 0 ? "limegreen" : "red" }}>
+                {inv.profitLoss}%
+              </span>
+            </div>
           </div>
         ))
       )}
