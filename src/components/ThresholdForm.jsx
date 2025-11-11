@@ -1,9 +1,9 @@
 import React from "react";
-import { useFormikContext } from "formik";
+import { useFormikContext, Field } from "formik";
 import "./ThresholdForm.css";
 
 const ThresholdForm = () => {
-  const { values, handleChange } = useFormikContext();
+  const { values } = useFormikContext();
   const isDisabled = values.thresholdType === "none";
 
   return (
@@ -12,35 +12,17 @@ const ThresholdForm = () => {
 
       <div className="threshold-options">
         <label>
-          <input
-            type="radio"
-            name="thresholdType"
-            value="none"
-            checked={values.thresholdType === "none"}
-            onChange={handleChange}
-          />
+          <Field type="radio" name="thresholdType" value="none" />
           No Threshold
         </label>
 
         <label>
-          <input
-            type="radio"
-            name="thresholdType"
-            value="percentage"
-            checked={values.thresholdType === "percentage"}
-            onChange={handleChange}
-          />
+          <Field type="radio" name="thresholdType" value="percentage" />
           Percentage (%)
         </label>
 
         <label>
-          <input
-            type="radio"
-            name="thresholdType"
-            value="target"
-            checked={values.thresholdType === "target"}
-            onChange={handleChange}
-          />
+          <Field type="radio" name="thresholdType" value="target" />
           Target Price (USDT)
         </label>
       </div>
@@ -48,12 +30,10 @@ const ThresholdForm = () => {
       <div className="threshold-inputs">
         <div className="input-group">
           <label>Profit Threshold</label>
-          <input
+          <Field
             type="number"
             name="profitThreshold"
             placeholder="10"
-            value={values.profitThreshold}
-            onChange={handleChange}
             disabled={isDisabled}
             className="input-field"
           />
@@ -61,12 +41,10 @@ const ThresholdForm = () => {
 
         <div className="input-group">
           <label>Loss Threshold</label>
-          <input
+          <Field
             type="number"
             name="lossThreshold"
             placeholder="-5"
-            value={values.lossThreshold}
-            onChange={handleChange}
             disabled={isDisabled}
             className="input-field"
           />
