@@ -1,6 +1,5 @@
 import React from "react";
 import { FaEdit } from "react-icons/fa";
-// import DeleteButton from "../DeleteButton";
 import DeleteButton from "../../components/DeleteButton";
 const Card = ({ investment, onEdit, onDelete }) => {
   const {

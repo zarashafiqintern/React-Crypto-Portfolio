@@ -3,12 +3,13 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import AddInvestmentForm from "../../components/AddInvestmentForm";
 import ThresholdForm from "../../components/ThresholdForm";
+import { usePortfolio } from "../../context/PortfolioContext";
 import "./EditInvestment.css";
 
 const EditInvestment = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const investments = JSON.parse(localStorage.getItem("investments")) || [];
+  const { investments, updateInvestment } = usePortfolio();
 
   const investment = investments.find(
     (inv) => inv.coin.toLowerCase() === id.toLowerCase()
@@ -19,38 +20,24 @@ const EditInvestment = () => {
   }
 
   const handleSubmit = (values) => {
-    const updated = investments.map((inv) =>
-      inv.coin.toLowerCase() === id.toLowerCase() ? values : inv 
-    );
+    updateInvestment(values);
+    navigate("/investments");
+  };
 
-    localStorage.setItem("investments", JSON.stringify(updated));
-    navigate("/investments");
-  };
-  const handleCancel = () => {
-    navigate("/investments");
-  };
+  const handleCancel = () => navigate("/investments");
 
   return (
     <div className="edit-investment-page">
       <h2>Edit Investment - {investment.coin}</h2>
-
-      <Formik
-        initialValues={investment}
-        enableReinitialize
-        onSubmit={handleSubmit}
-      >
+      <Formik initialValues={investment} enableReinitialize onSubmit={handleSubmit}>
         <Form>
           <AddInvestmentForm selectedCoin={investment.coin} />
-          <ThresholdForm />         
+          <ThresholdForm />
           <div className="butt-group">
-            <button type="submt" className="save-butn">
+            <button type="submit" className="save-butn">
               Save Changes
             </button>
-            <button
-              type="button"
-              className="cancel-butn"
-              onClick={handleCancel}
-            >
+            <button type="button" className="cancel-butn" onClick={handleCancel}>
               Cancel
             </button>
           </div>
@@ -60,4 +47,4 @@ const EditInvestment = () => {
   );
 };
 
-export default EditInvestment; 
+export default EditInvestment;

@@ -1,4 +1,4 @@
-import React from "react";
+import { PortfolioProvider } from "./context/PortfolioContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
@@ -10,24 +10,25 @@ import "./App.css";
 
 function App() {
   return (
-    <Router>
-      <div className="app-container">
-        <Navbar />
-        <Header
-          icon="💰"
-          title="Crypto Portfolio Tracker"
-          subtitle="Track your cryptocurrency investments with live Binance prices"
-        />
-
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/investments" element={<Investments />} />
-          <Route path="/investments/:id/edit" element={<EditInvestment />} />
-          <Route path="/investment/create" element={<CreateInvestment />} />
-        </Routes>
-      </div>
-    </Router>
+    <PortfolioProvider>
+      <Router>
+        <div className="app-container">
+          <Navbar />
+          <Header
+            icon="💰" 
+            title="Crypto Portfolio Tracker"
+            subtitle="Track your cryptocurrency investments with live Binance prices"
+          />
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/investments" element={<Investments />} />
+            <Route path="/investments/:id/edit" element={<EditInvestment />} />
+            <Route path="/investment/create" element={<CreateInvestment />} />
+          </Routes>
+        </div>
+      </Router>
+    </PortfolioProvider>
   );
 }
 
