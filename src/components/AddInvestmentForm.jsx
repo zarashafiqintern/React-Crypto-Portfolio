@@ -4,6 +4,13 @@ import Select from "react-select";
 import { coinOptions } from "../constants/coins"; 
 import "./AddInvestmentForm.css";
 
+const FormField = ({ label, ...props }) => (
+  <div className="form-group">
+    <label>{label}</label>
+    <Field className="input-field" {...props} />
+  </div>
+);
+
 const AddInvestmentForm = ({ selectedCoin }) => {
   const { values, setFieldValue } = useFormikContext();
 
@@ -18,7 +25,6 @@ const AddInvestmentForm = ({ selectedCoin }) => {
       <h2 className="form-title">Add Investment</h2>
 
       <div className="form-fields">
-       
         <div className="form-group">
           <label>Coin Symbol</label>
           <Select
@@ -31,35 +37,10 @@ const AddInvestmentForm = ({ selectedCoin }) => {
           />
         </div>
 
-        <div className="form-group">
-          <label>Quantity</label>
-          <Field
-            type="number"
-            name="quantity"
-            placeholder="0.5"
-            className="input-field"
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Buy Price (USDT)</label>
-          <Field
-            type="number"
-            name="buyPrice"
-            placeholder="45000"
-            className="input-field"
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Purchase Date</label>
-          <Field type="date" name="date" className="input-field" />
-        </div>
-
-        <div className="form-group">
-          <label>Purchase Time</label>
-          <Field type="time" name="time" className="input-field" />
-        </div>
+        <FormField label="Quantity" type="number" name="quantity" placeholder="0.5" />
+        <FormField label="Buy Price (USDT)" type="number" name="buyPrice" placeholder="45000" />
+        <FormField label="Purchase Date" type="date" name="date" />
+        <FormField label="Purchase Time" type="time" name="time" />
       </div>
     </div>
   );

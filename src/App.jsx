@@ -13,8 +13,8 @@ function App() {
     <Router>
       <div className="app-container">
         <Navbar />
-        <Header />
-
+       <Header/>
+       
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
