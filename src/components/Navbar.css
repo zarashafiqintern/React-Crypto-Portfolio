@@ -1,0 +1,37 @@
+.navbar {
+  font-family: "Poppins", sans-serif; 
+  color: white;
+  margin-top: 20px; 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 15px 60px;
+}
+
+.nav-logo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: white;
+}
+
+.nav-logo span {
+  color: #ffea00;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-link {
+  font-size: 1.05rem;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  opacity: 0.85;
+  transform: translateY(-2px);
+}
