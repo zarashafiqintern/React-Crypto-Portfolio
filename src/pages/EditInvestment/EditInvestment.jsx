@@ -20,13 +20,12 @@ const EditInvestment = () => {
 
   const handleSubmit = (values) => {
     const updated = investments.map((inv) =>
-      inv.coin.toLowerCase() === id.toLowerCase() ? values : inv
+      inv.coin.toLowerCase() === id.toLowerCase() ? values : inv 
     );
 
     localStorage.setItem("investments", JSON.stringify(updated));
     navigate("/investments");
   };
-
   const handleCancel = () => {
     navigate("/investments");
   };
@@ -61,4 +60,4 @@ const EditInvestment = () => {
   );
 };
 
-export default EditInvestment;
+export default EditInvestment; 
