@@ -7,18 +7,18 @@ import "./AddInvestmentForm.css";
 const AddInvestmentForm = ({ selectedCoin }) => {
   const { values, setFieldValue } = useFormikContext();
 
-  const selectedOption =
-    coinOptions.find(
-      (option) =>
-        option.value.toLowerCase() ===
-        (values.coin || selectedCoin || "").toLowerCase()
-    ) || null;
+  const currentCoin = (values.coin || selectedCoin || "").toLowerCase();
+
+  const selectedOption = coinOptions.find(
+    (option) => option.value.toLowerCase() === currentCoin
+  ) || null;
 
   return (
     <div className="investment-form-container">
       <h2 className="form-title">Add Investment</h2>
 
       <div className="form-fields">
+       
         <div className="form-group">
           <label>Coin Symbol</label>
           <Select
