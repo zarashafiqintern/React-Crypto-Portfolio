@@ -5,16 +5,20 @@ import Navbar from "./components/Navbar";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Investments from "./pages/investments/Investments";
 import EditInvestment from "./pages/EditInvestment/EditInvestment";
-import CreateInvestment from "./pages/createinvestment/CreateInvestment"; 
+import CreateInvestment from "./pages/createinvestment/CreateInvestment";
 import "./App.css";
 
 function App() {
-  return ( 
+  return (
     <Router>
       <div className="app-container">
         <Navbar />
-       <Header/>
-       
+        <Header
+          icon="💰"
+          title="Crypto Portfolio Tracker"
+          subtitle="Track your cryptocurrency investments with live Binance prices"
+        />
+
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
