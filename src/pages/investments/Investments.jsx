@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import "./investments.css";
-import { useLocalStorage } from "../../Hooks/UseLocalStorage";
-import { FaEdit } from "react-icons/fa";
-import DeleteButton from "../../components/DeleteButton";
+import { useLocalStorage } from "../../Hooks/useLocalStorage"; 
 import { useNavigate } from "react-router-dom";
-
+import { STORAGE_KEYS } from "../../utils/storageKeys";
 import { fetchPrice } from "../../utils/fetchPrice";
 import { calculateInvestmentStats } from "../../utils/calculateInvestmentStats";
-import { STORAGE_KEYS } from "../../utils/storageKeys";
+import Card from "./Card";
+import "./investments.css";
 
 const Investments = () => {
   const [investments] = useLocalStorage(STORAGE_KEYS.INVESTMENTS, []);
@@ -24,22 +22,9 @@ const Investments = () => {
         data.map(async (inv) => {
           const symbol = inv.coin.toUpperCase() + "USDT";
           const currentPrice = await fetchPrice(symbol);
-
           const { invested, currentValue, totalPL, profitLoss } =
-            calculateInvestmentStats(
-              parseFloat(inv.quantity),
-              parseFloat(inv.buyPrice),
-              currentPrice
-            );
-
-          return {
-            ...inv,
-            currentPrice,
-            invested,
-            currentValue,
-            profitLoss,
-            absoluteProfitLoss: totalPL,
-          };
+            calculateInvestmentStats(parseFloat(inv.quantity), parseFloat(inv.buyPrice), currentPrice);
+          return { ...inv, currentPrice, invested, currentValue, profitLoss, absoluteProfitLoss: totalPL };
         })
       );
       setUpdatedInvestments(updated);
@@ -54,9 +39,7 @@ const Investments = () => {
     localStorage.setItem(STORAGE_KEYS.INVESTMENTS, JSON.stringify(filtered));
   };
 
-  const handleEdit = (coin) => {
-    navigate(`/investments/${coin}/edit`);
-  };
+  const handleEdit = (coin) => navigate(`/investments/${coin}/edit`);
 
   return (
     <div className="investments-page">
@@ -64,68 +47,7 @@ const Investments = () => {
         <p>No investments found. Please add one!</p>
       ) : (
         updatedInvestments.map((inv, i) => (
-          <div className="card" key={i}>
-            <div className="card-header">
-              <h1>{inv.coin}</h1>
-              <div className="icons">
-                <FaEdit
-                  className="edit-icon"
-                  title="Edit investment"
-                  onClick={() => handleEdit(inv.coin)}
-                />
-                <DeleteButton onDelete={() => handleDelete(inv.coin)} />
-              </div>
-            </div>
-
-            <div className="card-row">
-              <strong>Quantity:</strong> {inv.quantity}
-            </div>
-            <div className="card-row">
-              <strong>Buy Price:</strong> ${inv.buyPrice}
-            </div>
-            <div className="card-row">
-              <strong>Current Price:</strong> ${inv.currentPrice}
-            </div>
-            <div className="card-row">
-              <strong>Invested:</strong> ${inv.invested.toLocaleString()}
-            </div>
-            <div className="card-row">
-              <strong>Current Value:</strong> ${inv.currentValue.toLocaleString()}
-            </div>
-
-            <div className="card-row">
-              <strong>Threshold:</strong>{" "}
-              {inv.thresholdType === "percentage"
-                ? `Percentage (${inv.profitThreshold || "N/A"}%)`
-                : inv.thresholdType === "target"
-                ? `Target Price (${inv.profitThreshold || "N/A"} USDT)`
-                : "None"}
-            </div>
-
-            <div className="card-row">
-              <strong>Purchase Date:</strong> {inv.date}, {inv.time}
-            </div>
-
-            <br />
-
-            <div
-              className={`card-row ${
-                inv.absoluteProfitLoss >= 0
-                  ? "profit-positive"
-                  : "profit-negative"
-              }`}
-            >
-              <strong>Profit/Loss:</strong> ${inv.absoluteProfitLoss.toFixed(2)}
-            </div>
-
-            <div
-              className={`card-row ${
-                inv.profitLoss >= 0 ? "profit-positive" : "profit-negative"
-              }`}
-            >
-              <strong>P/L %:</strong> {inv.profitLoss}%
-            </div>
-          </div>
+          <Card key={i} investment={inv} onEdit={handleEdit} onDelete={handleDelete} />
         ))
       )}
     </div>

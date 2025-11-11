@@ -3,12 +3,10 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import AddInvestmentForm from "../../components/AddInvestmentForm";
 import ThresholdForm from "../../components/ThresholdForm";
+import { useNavigate } from "react-router-dom";
 import "./CreateInvestment.css";
 
-import { useNavigate } from "react-router-dom";
-
 const CreateInvestment = () => {
-
   const navigate = useNavigate();
 
   const initialValues = {
@@ -30,18 +28,23 @@ const CreateInvestment = () => {
     time: Yup.string().required("Purchase time required"),
   });
 
+  const getThresholdText = (values) => {
+    switch (values.thresholdType) {
+      case "percentage":
+        return `+${values.profitThreshold}% / ${values.lossThreshold}%`;
+      case "target":
+        return `Target: ${values.profitThreshold}`;
+      default:
+        return "None";
+    }
+  };
+
   const handleSubmit = (values) => {
-    const savedInvestments =
-      JSON.parse(localStorage.getItem("investments")) || [];
+    const savedInvestments = JSON.parse(localStorage.getItem("investments")) || [];
 
     const newInvestment = {
       ...values,
-      threshold:
-        values.thresholdType === "percentage"
-          ? `+${values.profitThreshold}% / ${values.lossThreshold}%`
-          : values.thresholdType === "target"
-          ? `Target: ${values.profitThreshold}`
-          : "None",
+      threshold: getThresholdText(values),
     };
 
     localStorage.setItem(
@@ -60,8 +63,11 @@ const CreateInvestment = () => {
         onSubmit={handleSubmit}
       >
         <Form className="investment-form">
+          
           <AddInvestmentForm />
+
           <ThresholdForm />
+
           <button type="submit" className="add-btn">
             Add Investment
           </button>
