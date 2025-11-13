@@ -11,9 +11,11 @@ const EditInvestment = () => {
   const navigate = useNavigate();
   const { investments, updateInvestment } = usePortfolio();
 
-  const investment = investments.find(
-    (inv) => inv.coin.toLowerCase() === id.toLowerCase()
+  const investmentsMap = new Map(
+    investments.map((inv) => [inv.coin.toLowerCase(), inv])
   );
+
+  const investment = investmentsMap.get(id.toLowerCase());
 
   if (!investment) {
     return <p>Investment not found!</p>;
@@ -29,7 +31,11 @@ const EditInvestment = () => {
   return (
     <div className="edit-investment-page">
       <h2>Edit Investment - {investment.coin}</h2>
-      <Formik initialValues={investment} enableReinitialize onSubmit={handleSubmit}>
+      <Formik
+        initialValues={investment}
+        enableReinitialize
+        onSubmit={handleSubmit}
+      >
         <Form>
           <AddInvestmentForm selectedCoin={investment.coin} />
           <ThresholdForm />
@@ -37,7 +43,11 @@ const EditInvestment = () => {
             <button type="submit" className="save-butn">
               Save Changes
             </button>
-            <button type="button" className="cancel-butn" onClick={handleCancel}>
+            <button
+              type="button"
+              className="cancel-butn"
+              onClick={handleCancel}
+            >
               Cancel
             </button>
           </div>
