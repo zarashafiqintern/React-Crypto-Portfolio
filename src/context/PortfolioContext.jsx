@@ -1,0 +1,35 @@
+import React, { createContext, useContext } from "react";
+import { useLocalStorage } from "../Hooks/UseLocalStorage";
+
+const PortfolioContext = createContext();
+
+export const PortfolioProvider = ({ children }) => {
+
+  const [investments, setInvestments] = useLocalStorage("investments", []);
+
+  const addInvestment = (newInvestment) => {
+    setInvestments((prev) => [...prev, newInvestment]);
+  };
+
+  const updateInvestment = (updated) => {
+    setInvestments((prev) =>
+      prev.map((inv) =>
+        inv.coin.toLowerCase() === updated.coin.toLowerCase() ? updated : inv
+      )
+    );
+  };
+
+  const deleteInvestment = (coin) => {
+    setInvestments((prev) => prev.filter((inv) => inv.coin !== coin));
+  };
+
+  return (
+    <PortfolioContext.Provider
+      value={{ investments, addInvestment, updateInvestment, deleteInvestment }}
+    >
+      {children}
+    </PortfolioContext.Provider>
+  );
+};
+
+export const usePortfolio = () => useContext(PortfolioContext);

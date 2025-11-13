@@ -1,0 +1,30 @@
+.header {
+  color: white; 
+  text-align: center; 
+  padding: 15px 40px; 
+  font-family: "Poppins", sans-serif; 
+}
+
+.header-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.icon {
+  font-size: 2.3rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 1.05rem;
+  opacity: 0.9;
+  margin: 0;
+}
