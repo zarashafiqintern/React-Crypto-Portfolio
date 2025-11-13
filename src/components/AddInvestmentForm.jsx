@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Field, useFormikContext } from "formik";
 import Select from "react-select";
 import { coinOptions } from "../constants/coins";
@@ -15,10 +15,13 @@ const AddInvestmentForm = ({ selectedCoin }) => {
   const { values, setFieldValue } = useFormikContext();
 
   const currentCoin = (values.coin || selectedCoin || "").toLowerCase();
-  const selectedOption =
-    coinOptions.find(
-      (option) => option.value.toLowerCase() === currentCoin
-    ) || null;
+
+  const coinMap = useMemo(
+    () => new Map(coinOptions.map(option => [option.value.toLowerCase(), option])),
+    []
+  );
+
+  const selectedOption = coinMap.get(currentCoin) || null;
 
   const fieldConfigs = [
     { label: "Quantity", type: "number", name: "quantity", placeholder: "0.5" },
