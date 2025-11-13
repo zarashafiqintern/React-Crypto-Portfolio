@@ -4,18 +4,16 @@ import CreateInvestment from "../createinvestment/CreateInvestment";
 import Calculator from "./Calculator";
 import ImportCV from "./ImportCV";
 import ExportCV from "./ExportCV";
-import { useLocalStorage } from "../../Hooks/UseLocalStorage";
 import InvestmentSummary from "./InvestmentSummary";
-
+import { usePortfolio } from "../../context/PortfolioContext";
 import { fetchPrice } from "../../utils/fetchPrice";
 import { calculateInvestmentStats } from "../../utils/calculateInvestmentStats";
-import { STORAGE_KEYS } from "../../utils/storageKeys";
 
 const Dashboard = () => {
+  const { investments } = usePortfolio(); 
   const [showCreate, setShowCreate] = useState(false);
   const [showCalculator, setShowCalculator] = useState(false);
   const [portfolio, setPortfolio] = useState([]);
-  const [investments] = useLocalStorage(STORAGE_KEYS.INVESTMENTS, []);
   const [totals, setTotals] = useState({
     totalInvested: 0,
     currentValue: 0,
