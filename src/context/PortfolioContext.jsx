@@ -1,16 +1,11 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext } from "react";
+import { useLocalStorage } from "../Hooks/UseLocalStorage";
 
 const PortfolioContext = createContext();
 
 export const PortfolioProvider = ({ children }) => {
-  const [investments, setInvestments] = useState(() => {
-    const saved = localStorage.getItem("investments");
-    return saved ? JSON.parse(saved) : [];
-  });
 
-  useEffect(() => {
-    localStorage.setItem("investments", JSON.stringify(investments));
-  }, [investments]);
+  const [investments, setInvestments] = useLocalStorage("investments", []);
 
   const addInvestment = (newInvestment) => {
     setInvestments((prev) => [...prev, newInvestment]);
